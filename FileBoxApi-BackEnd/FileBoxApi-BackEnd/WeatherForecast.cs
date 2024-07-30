@@ -1,4 +1,4 @@
-namespace FileBoxApi_BackEnd
+namespace FileBoxApi
 {
     public class WeatherForecast
     {

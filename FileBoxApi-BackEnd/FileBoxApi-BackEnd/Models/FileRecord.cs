@@ -1,4 +1,4 @@
-﻿namespace FileBoxApi_BackEnd.Models
+﻿namespace FileBoxApi.Models
 {
     public class FileRecord
     {

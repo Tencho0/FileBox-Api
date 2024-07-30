@@ -1,4 +1,4 @@
-namespace FileBoxApi_BackEnd.Controllers
+namespace FileBoxApi.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
 

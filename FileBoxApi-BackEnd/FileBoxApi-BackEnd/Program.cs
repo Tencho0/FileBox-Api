@@ -1,5 +1,10 @@
-namespace FileBoxApi_BackEnd
+namespace FileBoxApi
 {
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+
+    using FileBoxApi.Data;
+
     public class Program
     {
         public static void Main(string[] args)
@@ -7,6 +12,8 @@ namespace FileBoxApi_BackEnd
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddDbContext<FileDbContext>(options =>
+                    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
