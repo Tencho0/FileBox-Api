@@ -4,6 +4,7 @@ namespace FileBoxApi
     using Microsoft.Extensions.Configuration;
 
     using FileBoxApi.Data;
+    using FileBoxApi_BackEnd.Services;
 
     public class Program
     {
@@ -20,6 +21,19 @@ namespace FileBoxApi
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddScoped<IFileService, FileService>();
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllOrigins",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                               .AllowAnyMethod()
+                               .AllowAnyHeader();
+                    });
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -30,7 +44,8 @@ namespace FileBoxApi
             }
 
             app.UseHttpsRedirection();
-
+            app.UseRouting();
+            app.UseCors("AllowAllOrigins");
             app.UseAuthorization();
 
 
