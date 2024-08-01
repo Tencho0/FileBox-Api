@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { FileList } from './components/FileList';
+import { FileUpload } from './components/FileUpload';
 
 function App() {
+  const [files, setFiles] = useState([]);
+
+  const fetchFiles = async () => {
+    try {
+      const response = await axios.get('http://localhost:5277/api/files'); //TODO: Fix the problem with the request
+      setFiles(response.data);
+    } catch (err) {
+      console.error('Failed to fetch files', err);
+    }
+  };
+
+  useEffect(() => {
+    fetchFiles();
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>FileBox</h1>
+      <FileUpload fetchFiles={fetchFiles} />
+      <FileList files={files} fetchFiles={fetchFiles} />
     </div>
   );
 }

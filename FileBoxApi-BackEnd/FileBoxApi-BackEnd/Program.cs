@@ -39,13 +39,15 @@ namespace FileBoxApi
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
+                app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
 
             app.UseHttpsRedirection();
             app.UseRouting();
-            app.UseCors("AllowAllOrigins");
+            app.UseCors();
+            //app.UseCors("AllowAllOrigins");
             app.UseAuthorization();
 
 
