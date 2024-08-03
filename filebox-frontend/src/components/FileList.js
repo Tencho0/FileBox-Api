@@ -1,10 +1,11 @@
 import React from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 
 export const FileList = ({ files, fetchFiles }) => {
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`https://localhost:7087/api/files/${id}`);
+            await axios.delete(`${API_BASE_URL}/files/${id}`);
             fetchFiles();
         } catch (err) {
             console.error('Failed to delete file', err);

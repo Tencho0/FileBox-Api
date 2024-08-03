@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 
 export const FileUpload = ({ fetchFiles }) => {
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -22,7 +23,7 @@ export const FileUpload = ({ fetchFiles }) => {
     });
 
     try {
-      await axios.post('https://localhost:7087/api/files/upload', formData, {
+      await axios.post(`${API_BASE_URL}/files/upload`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
