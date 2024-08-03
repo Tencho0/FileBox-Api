@@ -8,7 +8,7 @@ function App() {
 
   const fetchFiles = async () => {
     try {
-      const response = await axios.get('http://localhost:5277/api/files'); //TODO: Fix the problem with the request
+      const response = await axios.get('https://localhost:7087/api/files');
       setFiles(response.data);
     } catch (err) {
       console.error('Failed to fetch files', err);

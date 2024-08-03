@@ -2,43 +2,43 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 export const FileUpload = ({ fetchFiles }) => {
-    const [selectedFiles, setSelectedFiles] = useState([]);
-    const [error, setError] = useState(null);
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [error, setError] = useState(null);
 
-    const handleFileChange = (e) => {
-        setError(null);
-        setSelectedFiles(e.target.files);
-    };
+  const handleFileChange = (e) => {
+    setError(null);
+    setSelectedFiles(e.target.files);
+  };
 
-    const handleUpload = async () => {
-        if (selectedFiles.length === 0) {
-            setError('Please select files to upload.');
-            return;
-        }
+  const handleUpload = async () => {
+    if (selectedFiles.length === 0) {
+      setError('Please select files to upload.');
+      return;
+    }
 
-        const formData = new FormData();
-        Array.from(selectedFiles).forEach((file) => {
-            formData.append('files', file);
-        });
+    const formData = new FormData();
+    Array.from(selectedFiles).forEach((file) => {
+      formData.append('files', file);
+    });
 
-        try {
-          await axios.post('http://localhost:5277/api/files/upload', formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          });
-          fetchFiles();
-        } catch (err) {
-          setError('Failed to upload files. Please try again.');
-          console.error(err);
-        }
-    };
+    try {
+      await axios.post('https://localhost:7087/api/files/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      fetchFiles();
+    } catch (err) {
+      setError('Failed to upload files. Please try again.');
+      console.error(err);
+    }
+  };
 
-    return (
-        <div>
-            <input type="file" multiple onChange={handleFileChange} />
-            <button onClick={handleUpload}>Upload Files</button>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-        </div>
-    );
+  return (
+    <div>
+      <input type="file" multiple onChange={handleFileChange} />
+      <button onClick={handleUpload}>Upload Files</button>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+    </div>
+  );
 };

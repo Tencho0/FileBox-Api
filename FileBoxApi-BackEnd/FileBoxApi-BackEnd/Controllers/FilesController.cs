@@ -1,12 +1,14 @@
 ﻿namespace FileBoxApi_BackEnd.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Cors;
 
     using FileBoxApi.Models;
     using FileBoxApi_BackEnd.Services;
 
     [ApiController]
     [Route("api/[controller]")]
+    [EnableCors("AllowAll")]
     public class FilesController : ControllerBase
     {
         private readonly IFileService fileService;

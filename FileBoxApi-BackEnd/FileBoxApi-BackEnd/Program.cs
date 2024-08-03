@@ -1,8 +1,7 @@
 namespace FileBoxApi
 {
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
-
+ 
     using FileBoxApi.Data;
     using FileBoxApi_BackEnd.Services;
 
@@ -12,12 +11,10 @@ namespace FileBoxApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
             builder.Services.AddDbContext<FileDbContext>(options =>
                     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
@@ -25,18 +22,18 @@ namespace FileBoxApi
 
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("AllowAllOrigins",
+                options.AddPolicy("AllowAll",
                     builder =>
                     {
-                        builder.AllowAnyOrigin()
-                               .AllowAnyMethod()
-                               .AllowAnyHeader();
+                        builder
+                            .AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader();
                     });
             });
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -46,11 +43,8 @@ namespace FileBoxApi
 
             app.UseHttpsRedirection();
             app.UseRouting();
-            app.UseCors();
-            //app.UseCors("AllowAllOrigins");
+            app.UseCors("AllowAll");
             app.UseAuthorization();
-
-
             app.MapControllers();
 
             app.Run();
